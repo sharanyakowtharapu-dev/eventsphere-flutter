@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EventSphere API Test</title>
+</head>
+<body>
+<h2>EventSphere API Test</h2>
+<button onclick="createTestEvent()">Create Test Event</button>
+<button onclick="getEvents()">View All Events</button>
+<pre id="result"></pre>
+
+<script>
+    async function createTestEvent() {
+      const response = await fetch("http://localhost:3000/api/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: "EventSphere API Test",
+          category: "TECHNOLOGY",
+          description: "Testing event creation",
+          location: "DIET Campus"
+        })
+      });
+
+      document.getElementById("result").textContent =
+        JSON.stringify(await response.json(), null, 2);
+    }
+
+    async function getEvents() {
+      const response = await fetch("http://localhost:3000/api/events");
+      document.getElementById("result").textContent =
+        JSON.stringify(await response.json(), null, 2);
+    }
+</script>
+</body>
+</html>
